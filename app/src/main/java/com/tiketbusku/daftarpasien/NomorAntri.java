@@ -30,10 +30,6 @@ public class NomorAntri extends AppCompatActivity {
     JSONParser jParser = new JSONParser();
     ProgressDialog pDialog;
 
-    String newString;
-    TextView message;
-
-
     // User Session Manager Class
     UserSessionManager session;
     TextView text, text1, text2, text3, text4, text5, text6;
@@ -53,18 +49,6 @@ public class NomorAntri extends AppCompatActivity {
         text4 = (TextView) findViewById(R.id.textView7);
         text5 = (TextView) findViewById(R.id.textView8);
         text6 = (TextView) findViewById(R.id.textView9);
-
-        Bundle extras = getIntent().getExtras();
-        if(extras == null) {
-            newString= "nothing";
-        } else {
-            newString= extras.getString("message");
-        }
-
-        message  = (TextView) findViewById(R.id.string);
-
-        message.setText(newString);
-
         // Session class instance
         session = new UserSessionManager(getApplicationContext());
         if (session.checkLogin()) {
@@ -88,17 +72,14 @@ public class NomorAntri extends AppCompatActivity {
      /*   try {
             Calendar c = Calendar.getInstance();
             System.out.println("Current time => " + c.getTime());
-
             SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = df.format(c.getTime());
-
             Date date1 = df.parse(tgl);
             Date date2 = df.parse(formattedDate);
             if (date1.compareTo(date2)<0) {
                 session.logoutUser();
             }
         }
-
         catch (ParseException e1) {
             e1.printStackTrace();
         }*/
@@ -127,12 +108,12 @@ public class NomorAntri extends AppCompatActivity {
                 showJSON(response);
             }
         },
-            new Response.ErrorListener(){
-            @Override
-            public void onErrorResponse(VolleyError error){
-                Toast.makeText(NomorAntri.this,error.getMessage().toString(),Toast.LENGTH_LONG).show();
-            }
-        });
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        Toast.makeText(NomorAntri.this,error.getMessage().toString(),Toast.LENGTH_LONG).show();
+                    }
+                });
         RequestQueue requestQueue= Volley.newRequestQueue(this);
         requestQueue.add(stringRequest);
     }
